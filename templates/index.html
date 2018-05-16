@@ -55,10 +55,11 @@
           MusixCue
           </a>
           {% if request.user.is_authenticated %}
+              <p class="header item">Hello {{ username }}!</p>
               <a href="/accounts/logout" class="header item">登出</a>
           {% else %}
               <a href="/accounts/login/" class="header item">登入</a>
-              <a href="#" class="header item">註冊</a>
+              <a href="/accounts/register/" class="header item">註冊</a>
           {% endif %}
         </div>
       </div>

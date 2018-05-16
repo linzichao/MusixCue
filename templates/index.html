@@ -1,4 +1,5 @@
 {% load static %}
+{% load sass_tags %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +22,7 @@
         <link rel="stylesheet" type="text/css" href="{% static "components/list.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/message.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/icon.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/card.css" %}">
 
         <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
         <script src="{% static "javascript/semantic.min.js" %}"></script>
@@ -37,7 +39,7 @@
             margin-right: 1.5em;
           }
           .main.container {
-            margin-top: 7em;
+            margin-top: 100px;
           }
           .wireframe {
             margin-top: 2em;
@@ -47,25 +49,75 @@
             padding: 5em 0em;
           }
         </style>
+
+        <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
     </head>
-    <body>
-      <div class="ui fixed inverted menu">
-        <div class="ui container">
-          <a href="/" class="header item">
-          MusixCue
-          </a>
-          {% if request.user.is_authenticated %}
-              <p class="header item">Hello {{ username }}!</p>
-              <a href="/accounts/logout" class="header item">登出</a>
-          {% else %}
-              <a href="/accounts/login/" class="header item">登入</a>
-              <a href="/accounts/register/" class="header item">註冊</a>
-          {% endif %}
+    <body class="default">
+      <div class="pusher">
+        <div id="content">
+          <div class="ui fixed inverted menu">
+            <div class="ui container">
+              <a href="/" class="header item">
+              MusixCue
+              </a>
+              {% if request.user.is_authenticated %}
+                  <p class="header item">Hello {{ username }}!</p>
+                  <a href="#" class="header item">個人資料</a>
+                  <a href="/accounts/logout" class="header right item">登出</a>
+              {% else %}
+                  <a href="/accounts/login/" class="header item">登入</a>
+                  <a href="/accounts/register/" class="header item">註冊</a>
+              {% endif %}
+            </div>
+          </div>
+          <div class="ui main text container">
+            <div>{% now "jS F Y H:i" %}</div>
+            <div>Hello World!!!</div>
+          </div>
+          <div class="ui vertical stripe segment">
+            <div class="ui divided relaxed grid stackable container">
+              <div class="row">
+                <article class="twelve wide column">
+                  <div class="ui tab active" data-tab="bootstrap">
+                    <h2 class="ui dividing header">
+                      音樂清單
+                    </h2>
+                    <div class="ui two stackable doubling cards" style="margin-top: 0.875rem !important">
+                      <div class="ui raised link card">
+                        <div class="content">
+                          <div class="header">
+                            標題
+                          </div>
+                          <div class="description">
+                            安安
+                          </div>
+                        </div>
+                        <div class="extra content">
+                          <div class="ui two item menu">
+                            <a class="ui button item" href="#">聽歌囉</a>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="ui hidden divider"></div>
+                    </div>
+                  </div>
+                </article>
+                <aside class="four wide column">
+                  <div class="ui buttons" style="margin:5px 0 6px 0;">
+                    <div class="ui vertical grey animated button" tabindex="0">
+                      <div class="visible content">測試</div>
+                      <div class="hidden content">Test</div>
+                    </div>
+                    <div class="ui vertical grey animated button" tabindex="0">
+                      <div class="visible content">測試2</div>
+                      <div class="hidden content">Test2</div>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="ui main text container">
-        <p>{% now "jS F Y H:i" %}</p>
-        <p>Hello World!!!</p>
       </div>
     </body>
 </html>

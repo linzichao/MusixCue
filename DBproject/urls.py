@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from accounts.views import index, login, logout, register
+from accounts.views import login, logout, register
+from music.views import index
 
 urlpatterns = [
     url(r'^$', index),

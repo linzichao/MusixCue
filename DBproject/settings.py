@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from decouple import config
+import configparser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,13 +75,18 @@ WSGI_APPLICATION = 'DBproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+CONF_DIR = os.path.join(BASE_DIR, "DBproject/settings.ini")
+
+cf = configparser.ConfigParser()
+cf.read(CONF_DIR)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
+        'NAME': cf['settings']['NAME'],
+        'USER': cf['settings']['USER'],
+        'PASSWORD': cf['settings']['PASSWORD'],
+        'HOST': cf['settings']['HOST'],
         'PORT': '3306',
     }
 }

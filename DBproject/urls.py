@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from accounts.views import login, logout, register
+from accounts.views import login, logout, register, info
 from music.views import index
 
 urlpatterns = [
@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^accounts/login/$', login, {'template_name':'login.html'}),
-    url(r'^accounts/logout/$',logout, {'next_page': '/'}),
-    url(r'^accounts/register/$',register),
+    url(r'^accounts/logout/$', logout, {'next_page': '/'}),
+    url(r'^accounts/register/$', register),
+    url(r'^accounts/info/$', info),
 ]

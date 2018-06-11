@@ -54,7 +54,9 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button class="ui fluid large teal submit button" type="submit">登入</button>
+
         </form>
+        <div style="margin-top: 20px;">沒有MusixCue帳號？<a href="/accounts/register/" class="header item">註冊新帳號</a></div>
       </div>
     </div>
   </body>

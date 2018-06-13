@@ -30,9 +30,12 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+SITE_ID = 1 # for django sites
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.sites',
+    'django_comments',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

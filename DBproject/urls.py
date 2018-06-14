@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from accounts.views import login, logout, register, info
-from music.views import index
+from music.views import index, playlist
 
 urlpatterns = [
     url(r'^$', index),
@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout, {'next_page': '/'}),
     url(r'^accounts/register/$', register),
     url(r'^accounts/info/$', info),
+
+    url(r'^playlist/$', playlist)
 ]

@@ -48,6 +48,9 @@
             margin: 5em 0em 0em;
             padding: 5em 0em;
           }
+          p {
+            font-weight: bold;
+          }
           #banner{
             background-image: url("{% static 'image/banner.jpeg' %}");
             background-position: center;
@@ -59,23 +62,18 @@
     </head>
     <body class="default">
       <div class="pusher">
-        <div class="ui fixed inverted menu">
-          <div class="ui container">
-            <a href="/" class="header item">
-            MusixCue
-            </a>
-            {% if request.user.is_authenticated %}
-                <p class="header item">Hello {{ username }}!</p>
-                <a href="/accounts/info" class="header item">個人資料</a>
-                <a href="/playlist" class="header item">播放清單</a>
-                <a href="/accounts/logout" class="header right item">登出</a>
-            {% else %}
-                <a href="/accounts/login/" class="header item">登入</a>
-                <a href="/accounts/register/" class="header item">註冊</a>
-            {% endif %}
-          </div>
-        </div>
         <div id="content">
+          <div class="ui fixed inverted menu">
+            <div class="ui container">
+              <a href="/" class="header item">
+              MusixCue
+              </a>
+              <a href="/accounts/info" class="header item">個人資料</a>
+              {% if request.user.is_authenticated %}
+                  <a href="/accounts/logout" class="header right item">登出</a>
+              {% endif %}
+            </div>
+          </div>
           <div class="ui vertical stripe segment" style="height: 185px;padding-bottom: 20px;margin-top: 40px;padding-top: 20px;" id="banner">
             <div class="ui container">
                 <h1 class="ui header">
@@ -91,51 +89,16 @@
               <div class="row">
                 <article class="twelve wide column">
                   <div class="ui tab active" data-tab="bootstrap">
-                    <div class="ui action left icon input">
-                      <i class="search icon"></i>
-                      <input type="text" placeholder="藝人、專輯、歌曲...">
-                      <button class="ui button">Submit</button>
-                    </div>
                     <h2 class="ui dividing header">
-                      音樂清單
+                      播放清單
                     </h2>
-                    <div class="ui two stackable doubling cards" style="margin-top: 0.875rem !important">
-                      <div class="ui raised link card">
-                        <div class="content">
-                          <div class="header">
-                            Perfect
-                          </div>
-                          <div class="description">
-                            Ed Sheeran - ÷
-                          </div>
-                        </div>
-                        <div class="extra content">
-                          <div class="ui three item menu">
-                            <a class="ui button item" href="#">歌曲資料</a>
-                            <a class="ui button item" href="#">加入播放清單</a>
-                            <a class="ui button item" href="#">試聽</a>
-                          </div>
-                        </div>
-                      </div>
-                    <div class="ui hidden divider"></div>
+                    <div class="ui two column middle aligned very relaxed stackable grid">
+
+
+
                     </div>
                   </div>
                 </article>
-                <aside class="four wide column">
-                  <h2 class="ui dividing header">
-                    瀏覽
-                  </h2>
-                  <div class="ui buttons" style="margin:5px 0 6px 0;">
-                    <div class="ui vertical grey animated button" tabindex="0">
-                      <div class="visible content">電子舞曲</div>
-                      <div class="hidden content">EDM</div>
-                    </div>
-                    <div class="ui vertical green animated button" tabindex="0">
-                      <div class="visible content">流行</div>
-                      <div class="hidden content">Pop</div>
-                    </div>
-                  </div>
-                </aside>
               </div>
             </div>
           </div>

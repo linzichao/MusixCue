@@ -1,0 +1,239 @@
+{% load static %}
+{% load sass_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MusixCue</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static "components/reset.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/site.css" %}">
+
+        <link rel="stylesheet" type="text/css" href="{% static "components/container.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/grid.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/header.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/image.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/menu.css" %}">
+
+        <link rel="stylesheet" type="text/css" href="{% static "components/divider.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/segment.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/form.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/input.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/button.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/list.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/message.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/icon.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/card.css" %}">
+
+        <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
+        <script src="{% static "javascript/semantic.min.js" %}"></script>
+        <script src="{% static "components/form.js" %}"></script>
+        <script src="{% static "components/transition.js" %}"></script>
+
+        <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
+        <script src="{% static "javascript/semantic.min.js" %}"></script>
+        <style type="text/css">
+          body {
+            background-image: url("{% static 'image/snow.png' %}");
+          }
+          .ui.menu .item img.logo {
+            margin-right: 1.5em;
+          }
+          .main.container {
+            margin-top: 100px;
+          }
+          .wireframe {
+            margin-top: 2em;
+          }
+          .ui.footer.segment {
+            margin: 5em 0em 0em;
+            padding: 5em 0em;
+          }
+          p {
+            font-weight: bold;
+          }
+          #banner{
+            background-image: url("{% static 'image/banner.jpeg' %}");
+            background-position: center;
+          }
+
+        </style>
+
+        <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
+    </head>
+    <body class="default">
+      <div class="pusher">
+        <div id="content">
+          <div class="ui fixed inverted menu">
+            <div class="ui container">
+              <a href="/" class="header item">
+              MusixCue
+              </a>
+              <a href="/accounts/info" class="header item">個人資料</a>
+              <a href="/playlist" class="header item">播放清單</a>
+              {% if request.user.is_authenticated %}
+                  <a href="/accounts/logout" class="header right item">登出</a>
+              {% endif %}
+            </div>
+          </div>
+          <div class="ui vertical stripe segment" style="height: 185px;padding-bottom: 20px;margin-top: 40px;padding-top: 20px;" id="banner">
+            <div class="ui container">
+                <h1 class="ui header">
+                    MusixCue
+                    <div class="sub header">
+                        Your Music Starts Here<i class="music right icon"></i>
+                    </div>
+                </h1>
+            </div>
+          </div>
+          <div class="ui vertical stripe segment">
+            <div class="ui divided relaxed grid stackable container">
+              <h2 class="ui dividing header">
+                歌曲資料
+              </h2>
+              <div class="right menu" style="margin-left: 850px;">
+                  <button class="right ui button"><i class="plus icon"></i>加入播放清單</button>
+                  <a href="/" class="right ui button"><i class="music icon"></i>前往試聽</a>
+              </div>
+              <div class="row">
+                <div class="top ui three item menu">
+                  <div class="item">歌曲</div>
+                  <div class="item">專輯</div>
+                  <div class="item">藝人</div>
+                </div>
+                <div class="top ui three item menu" style="margin-top: 0px;background-color: rgb(207,206,207);">
+                  <div class="item">Perfect</div>
+                  <div class="item">Divide ÷</div>
+                  <div class="item">Ed Sheeran</div>
+                </div>
+                <article class="ten wide column" style="margin-top: 15px;">
+                  <h3 class="ui dividing header">
+                    歌詞
+                  </h3>
+                  <div class="ui segment">
+                    <p>I found a love for me<br />
+                        Darling just dive right in<br />
+                        And follow my lead<br />
+                        Well I found a girl beautiful and sweet<br />
+                        I never knew you were the someone waiting for me<br />
+                        'Cause we were just kids when we fell in love<br />
+                        Not knowing what it was<br />
+                        I will not give you up this time<br />
+                        But darling, just kiss me slow, your heart is all I own<br />
+                        And in your eyes you're holding mine<br />
+                        Baby, I'm dancing in the dark with you between my arms<br />
+                        Barefoot on the grass, listening to our favorite song<br />
+                        When you said you looked a mess, I whispered underneath my breath<br />
+                        But you heard it, darling, you look perfect tonight<br />
+                        Well I found a woman, stronger than anyone I know<br />
+                        She shares my dreams, I hope that someday I'll share her home<br />
+                        I found a love, to carry more than just my secrets<br />
+                        To carry love, to carry children of our own<br />
+                        We are still kids, but we're so in love<br />
+                        Fighting against all odds<br />
+                        I know we'll be alright this time<br />
+                        Darling, just hold my hand<br />
+                        Be my girl, I'll be your man<br />
+                        I see my future in your eyes<br />
+                        Baby, I'm dancing in the dark, with you between my arms<br />
+                        Barefoot on the grass, listening to our favorite song<br />
+                        When I saw you in that dress, looking so beautiful<br />
+                        I don't deserve this, darling, you look perfect tonight<br />
+                        Baby, I'm dancing in the dark, with you between my arms<br />
+                        Barefoot on the grass, listening to our favorite song<br />
+                        I have faith in what I see<br />
+                        Now I know I have met an angel in person<br />
+                        And she looks perfect<br />
+                        I don't deserve this<br />
+                        You look perfect tonight</p>
+                  </div>
+                </article>
+                <aside class="five wide column" style="margin-top: 15px;">
+                  <div class="ui comments">
+                    <h3 class="ui dividing header">評論</h3>
+                    <div class="comment">
+                      <a class="avatar">
+                        <img src="/images/avatar/small/matt.jpg">
+                      </a>
+                      <div class="content">
+                        <a class="author">Matt</a>
+                        <div class="metadata">
+                          <span class="date">Today at 5:42PM</span>
+                        </div>
+                        <div class="text">
+                          How artistic!
+                        </div>
+                        <div class="actions">
+                          <a class="reply">Reply</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="comment">
+                      <a class="avatar">
+                        <img src="/images/avatar/small/elliot.jpg">
+                      </a>
+                      <div class="content">
+                        <a class="author">Elliot Fu</a>
+                        <div class="metadata">
+                          <span class="date">Yesterday at 12:30AM</span>
+                        </div>
+                        <div class="text">
+                          <p>This has been very useful for my research. Thanks as well!</p>
+                        </div>
+                        <div class="actions">
+                          <a class="reply">Reply</a>
+                        </div>
+                      </div>
+                      <div class="comments">
+                        <div class="comment">
+                          <a class="avatar">
+                            <img src="/images/avatar/small/jenny.jpg">
+                          </a>
+                          <div class="content">
+                            <a class="author">Jenny Hess</a>
+                            <div class="metadata">
+                              <span class="date">Just now</span>
+                            </div>
+                            <div class="text">
+                              Elliot you are always so right :)
+                            </div>
+                            <div class="actions">
+                              <a class="reply">Reply</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="comment">
+                      <a class="avatar">
+                        <img src="/images/avatar/small/joe.jpg">
+                      </a>
+                      <div class="content">
+                        <a class="author">Joe Henderson</a>
+                        <div class="metadata">
+                          <span class="date">5 days ago</span>
+                        </div>
+                        <div class="text">
+                          Dude, this is awesome. Thanks so much
+                        </div>
+                        <div class="actions">
+                          <a class="reply">Reply</a>
+                        </div>
+                      </div>
+                    </div>
+                    <form class="ui reply form">
+                      <div class="field">
+                        <textarea></textarea>
+                      </div>
+                      <div class="ui blue labeled submit icon button">
+                        <i class="icon edit"></i> Add Reply
+                      </div>
+                    </form>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>

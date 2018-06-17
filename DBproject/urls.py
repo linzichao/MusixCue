@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from accounts.views import login, logout, register, info
-from music.views import index, playlist
+from music.views import index, playlist, comment
 
 urlpatterns = [
     url(r'^$', index),
@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^accounts/register/$', register),
     url(r'^accounts/info/$', info),
 
-    url(r'^playlist/$', playlist)
+    url(r'^playlist/$', playlist),
+    url(r'^comment/$', comment),
 ]

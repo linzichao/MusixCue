@@ -19,14 +19,20 @@ class Song(models.Model):
     SongName = models.CharField(max_length = 100)
     SongLyrics = models.TextField(blank = True)
     SongLink = models.URLField(blank = False)
+    def __str__(self):
+        return 'Song: {}'.format(self.SongName)
 
 class Album(models.Model):
     AlbumID = models.IntegerField(primary_key = True)
     AlbumName = models.CharField(max_length = 100)
+    def __str__(self):
+        return 'Album: {}'.format(self.AlbumName)
 
 class Artist(models.Model):
     ArtistID = models.IntegerField(primary_key = True)
     ArtistName = models.CharField(max_length = 100)
+    def __str__(self):
+        return 'Artist: {}'.format(self.ArtistName)
 
 class Release(models.Model):
     ArtistID = models.ForeignKey('Artist')

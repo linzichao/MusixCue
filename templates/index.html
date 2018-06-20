@@ -204,21 +204,23 @@
           <h2 class="ui dividing header" style="color:#ffffff;">
               快速搜尋
           </h2>
-          <div class="ui left icon input">
-            <i class="search icon"></i>
-            <input type="text" id="search_artist" style="margin-top: 10px;margin-bottom: 10px;" placeholder="找藝人...">
-          </div>
-          <div class="ui left icon input">
-            <i class="search icon"></i>
-            <input type="text" id="search_album" style="margin-top: 10px;margin-bottom: 10px;" placeholder="找專輯...">
-          </div>
-          <div class="ui left icon input">
-            <i class="search icon"></i>
-            <input type="text" id="search_song" style="margin-top: 10px;margin-bottom: 20px;" placeholder="找歌曲...">
-          </div>
-          <div>
-            <button class="ui button">Submit</button>
-          </div>
+          <form action="/search/" method="get">
+            <div class="ui left icon input">
+              <i class="search icon"></i>
+              <input type="text" id="search_artist" name="artist" style="margin-top: 10px;margin-bottom: 10px;" placeholder="找藝人...">
+            </div>
+            <div class="ui left icon input">
+              <i class="search icon"></i>
+              <input type="text" id="search_album" name="album" style="margin-top: 10px;margin-bottom: 10px;" placeholder="找專輯...">
+            </div>
+            <div class="ui left icon input">
+              <i class="search icon"></i>
+              <input type="text" id="search_song" name="song" style="margin-top: 10px;margin-bottom: 20px;" placeholder="找歌曲...">
+            </div>
+            <div>
+              <button class="ui button">Submit</button>
+            </div>
+          </form>
         </ul>
         <button><i class="angle right icon">快速搜尋</i></button>
       </aside>

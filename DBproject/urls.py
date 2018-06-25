@@ -16,18 +16,22 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from accounts.views import login, logout, register, info
-from music.views import index, playlist, comment
+from music.views import index, playlist, comment, search
 
 urlpatterns = [
     url(r'^$', index),
     url(r'^admin/', admin.site.urls),
     url(r'^comments/', include('django_comments.urls')),
 
+    # accounts
     url(r'^accounts/login/$', login, {'template_name':'login.html'}),
     url(r'^accounts/logout/$', logout, {'next_page': '/'}),
     url(r'^accounts/register/$', register),
     url(r'^accounts/info/$', info),
 
+    # music
     url(r'^playlist/$', playlist),
     url(r'^comment/$', comment),
+    url(r'^search/$', search),
+
 ]

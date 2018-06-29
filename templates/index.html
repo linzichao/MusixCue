@@ -87,6 +87,17 @@
 
         <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
         <script>
+          function getId(url) {
+              var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+              var match = url.match(regExp);
+
+              if (match && match[2].length == 11) {
+                  return match[2];
+              } else {
+                  return 'error';
+              }
+          }
+
           $(function(){
 
             var duration = 300;
@@ -137,12 +148,23 @@
             $(".add_to_playlist").click(function(){
                 songid = $(this).attr('id');
                 var jqxhr = $.get( "accounts/logging", function() {
-                    $('.modal').modal('show');
+                    $('#add_playerlist').modal('show');
                 }).fail(function() {
                     window.location.href = "accounts/login";
                 });
             });
+            var $videoSrc, $videoId;
+            $(".listen_music").click(function(){
+                $videoSrc = $(this).data('url');
+                console.log($videoSrc);
+                $videoId = getId( $videoSrc )
+                console.log($videoId);
+                $("#video").attr('src', "//www.youtube.com/embed/" + $videoId + "?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1" );
+                $('#play_video_modal').modal('show');
+            });
+
           });
+
 
           $(function(){
             var jqxhr = $.get( "/get_my_playlist" , function() {
@@ -154,6 +176,7 @@
               $('.dropdown-menu').html(a_tag);
             });
           });
+
 
         </script>
     </head>
@@ -212,7 +235,7 @@
                             <div class="ui three item menu">
                               <a class="ui button item" href="/comment/?songid={{ item.SongID }}">歌曲資料</a>
                               <a class="ui button item add_to_playlist"  id="{{ item.SongID }}">加入播放清單</a>
-                              <a class="ui button item" href="{{ item.SongLink }}">試聽</a>
+                              <a class="ui button item listen_music" data-url="{{ item.SongLink }}">試聽</a>
                             </div>
                           </div>
                         </div>
@@ -268,7 +291,7 @@
         </ul>
         <button><i class="angle right icon">快速搜尋</i></button>
       </aside>
-      <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal" id="add_playerlist" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -294,6 +317,19 @@
           </div>
         </div>
       </div>
+
+      <div class="modal" id="play_video_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body" style="background-color: white;" >
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always">></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </body>
     <script>
 
@@ -302,9 +338,10 @@
       $(document).ready(function(){
         $("#add").click(function(){
           var jqxhr = $.get( "/playlist?songid=" + songid + "&playlistid=" + $(".dropdown").find('.btn').val() , function() {
-            $('.modal').modal('toggle');
+            $('#add_playerlist').modal('toggle');
           });
         });
+
       });
 
     </script>

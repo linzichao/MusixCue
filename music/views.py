@@ -36,9 +36,34 @@ def search(request):
     return HttpResponse( ls_return )
 
 def index(request):
+
+    sql = "select * from music_song as SONG \
+                INNER JOIN music_belongto as BLON \
+                    on SONG.SongID = BLON.SongID_id \
+                INNER JOIN music_album as ALB \
+                    on BLON.AlbumID_id = ALB.AlbumID \
+                INNER JOIN music_release as REL \
+                    on ALB.AlbumID = REL.AlbumID_id \
+                INNER JOIN music_artist as ART \
+                    on REL.ArtistID_id = ART.ArtistID "
+
+    songs = Song.objects.raw(sql)
+
+    ls_return = []
+
+    for s in songs:
+        one_tuple = {}
+        one_tuple['SongName'] = s.SongName
+        one_tuple['AlbumName'] = s.AlbumName
+        one_tuple['ArtistName'] = s.ArtistName
+        one_tuple['SongID'] = s.SongID
+        one_tuple['SongLink'] = s.SongLink
+        ls_return.append(one_tuple)
+
     username = None
     if request.user.is_authenticated():
         username = request.user.username
+
     return render(request, 'index.html', locals())
 
 # User's playlist
@@ -57,6 +82,8 @@ def comment(request):
 
             ThisSongName = Song.objects.get(SongID=int(SongID)).SongName
             ThisSongLyrics = Song.objects.get(SongID=int(SongID)).SongLyrics
+
+            #ThisSongLyrics = ThisSongLyrics.replace('\n','<br>')
 
             SongBelongAlbum = BelongTo.objects.get(SongID_id=SongID)
             ArtistReleaseAlbum = Release.objects.get(AlbumID=SongBelongAlbum.AlbumID_id)

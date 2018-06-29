@@ -158,24 +158,26 @@
                       音樂清單
                     </h2>
                     <div class="ui two stackable doubling cards" style="margin-top: 0.875rem !important">
-                      <div class="ui raised link card">
-                        <div class="content">
-                          <div class="header">
-                            Tenerife Sea
+                    {% for item in ls_return %}
+                        <div class="ui raised link card">
+                          <div class="content">
+                            <div class="header">
+                              {{ item.SongName }}
+                            </div>
+                            <div class="description">
+                              {{ item.ArtistName }} - {{ item.AlbumName }}
+                            </div>
                           </div>
-                          <div class="description">
-                            Ed Sheeran - X
+                          <div class="extra content">
+                            <div class="ui three item menu">
+                              <a class="ui button item" href="/comment/?songid={{ item.SongID }}">歌曲資料</a>
+                              <a class="ui button item" href="#">加入播放清單</a>
+                              <a class="ui button item" href="{{ item.SongLink }}">試聽</a>
+                            </div>
                           </div>
                         </div>
-                        <div class="extra content">
-                          <div class="ui three item menu">
-                            <a class="ui button item" href="/comment/?songid=77">歌曲資料</a>
-                            <a class="ui button item" href="#">加入播放清單</a>
-                            <a class="ui button item" href="#">試聽</a>
-                          </div>
-                        </div>
-                      </div>
-                    <div class="ui hidden divider"></div>
+                        <div class="ui hidden divider"></div>
+                    {% endfor %}
                     </div>
                   </div>
                 </article>

@@ -1,0 +1,16 @@
+create_playlist:
+<form action="/create_playlist/" method="get">
+{% csrf_token %}
+  <p>playlist name: <input type="text" name="playlist_name" /></p>
+  <input type="submit" value="Submit" />
+</form>
+
+
+add_song_to_playlist:
+
+<form action="/add_song_to_playlist/" method="get">
+{% csrf_token %}
+  <p>song id: <input type="number" name="song_id" /></p>
+  <p>playlist id: <input type="number" name="playlist_id" /></p>
+  <input type="submit" value="Submit" />
+</form>

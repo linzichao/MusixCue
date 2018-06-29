@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from accounts.views import login, logout, register, info
+from accounts.views import login, logout, register, info, is_loggin
 from music.views import index, playlist, comment, search
 
 urlpatterns = [
@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout, {'next_page': '/'}),
     url(r'^accounts/register/$', register),
     url(r'^accounts/info/$', info),
+    url(r'^accounts/logging/$', is_loggin),
 
     # music
     url(r'^playlist/$', playlist),

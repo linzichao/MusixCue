@@ -166,6 +166,18 @@
           });
 
 
+          $(function(){
+            var jqxhr = $.get( "/get_my_playlist" , function() {
+            }).done(function( response ) {
+              a_tag = "";
+              response.data.forEach(function(element){
+	               a_tag += "<input class='dropdown-item' onClick='Click_Dropdown();' " + "data-value='" + element.PlayListID + "'>" + element.PlayListName + "</a>";
+              });
+              $('.dropdown-menu').html(a_tag);
+            });
+          });
+
+
         </script>
     </head>
     <body class="default">
@@ -293,12 +305,9 @@
             </div>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                Dropdown button
+                播放清單...
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" data-value="0">Action</a>
-                <a class="dropdown-item" data-value="1">Another action</a>
-                <a class="dropdown-item" data-value="2">Something else here</a>
               </div>
             </div>
             <div class="modal-footer">
@@ -333,12 +342,6 @@
           });
         });
 
-      });
-
-      $(".dropdown a").click(function(){
-        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-        $("#dropdownMenuButton").dropdown("toggle");
       });
 
     </script>

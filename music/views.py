@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.db import models
-from django.http import HttpResponseRedirect, HttpResponse
-from music.models import Song, Album, Artist, Release, BelongTo
-# Create your views here.
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from music.models import Song, Album, Artist, Release, BelongTo, PlayList, AddTo
+from django.contrib.auth.models import User
+import json
 
 def search(request):
     song, album, artist = request.GET['song'], request.GET['album'], request.GET['artist']
@@ -81,6 +82,49 @@ def playlist(request):
     else:
         return HttpResponseRedirect("/accounts/login/")
 
+def create_playlist(request):
+    if request.user.is_authenticated():
+        if request.GET:
+            pid = 1
+            while PlayList.objects.filter(PlayListID = pid):
+                pid += 1 # find the first unused pid, stupid and can be problematic when there are concurrent requests
+            p = PlayList.objects.create(
+                    PlayListID = pid ,
+                    PlayListName = request.GET['playlist_name'],
+                    CreatedBy = request.user
+                )
+            p.save()
+            return HttpResponse('ok, playlist id = ' + str(pid), status=200)
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
+def add_song_to_playlist(request):
+    if request.user.is_authenticated():
+        if request.GET:
+            a = AddTo.objects.create(
+                    SongID = Song.objects.get(SongID = request.GET['song_id']),
+                    PlayListID = PlayList.objects.get(PlayListID = request.GET['playlist_id'])
+                )
+            a.save()
+            return HttpResponse('Ok', status=200)
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
+def get_my_playlist(request):
+    if request.user.is_authenticated():
+        if request.method == 'GET':
+            x = PlayList.objects.filter(CreatedBy = request.user)
+            print(x)
+            return JsonResponse({'data': list(x.values())})
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
 def comment(request):
     if request.user.is_authenticated():
         if request.method == 'GET':
@@ -102,3 +146,6 @@ def comment(request):
             return render(request, 'comment.html', locals())
     else:
         return HttpResponseRedirect("/accounts/login/")
+
+def test_page(request):
+    return render(request, "test_page.html", locals())

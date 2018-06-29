@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from accounts.views import login, logout, register, info
-from music.views import index, playlist, comment, search
+
+from accounts.views import login, logout, register, info, is_loggin
+from music.views import index, playlist, comment, search, get_my_playlist, create_playlist, add_song_to_playlist, test_page
+
 
 urlpatterns = [
     url(r'^$', index),
@@ -28,10 +30,16 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout, {'next_page': '/'}),
     url(r'^accounts/register/$', register),
     url(r'^accounts/info/$', info),
+    url(r'^accounts/logging/$', is_loggin),
 
     # music
     url(r'^playlist/$', playlist),
+    url(r'^create_playlist/$', create_playlist),
+    url(r'^add_song_to_playlist/$', add_song_to_playlist),
+    url(r'^get_my_playlist/$', get_my_playlist),
     url(r'^comment/$', comment),
     url(r'^search/$', search),
 
+    # testing
+    url(r'^test_page/$', test_page),
 ]

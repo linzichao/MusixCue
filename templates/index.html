@@ -23,14 +23,21 @@
         <link rel="stylesheet" type="text/css" href="{% static "components/message.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/icon.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/card.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/dropdown.css" %}">
+
+        <link rel="stylesheet" type="text/css" href="{% static "stylesheet/bootstrap.min.css" %}">
+
 
         <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="{% static "javascript/semantic.min.js" %}"></script>
+
+        <script src="{% static "javascript/bootstrap.min.js" %}"></script>
+        <!--
+        <script src="{% static "components/dropdown.js" %}"></script>
         <script src="{% static "components/form.js" %}"></script>
         <script src="{% static "components/transition.js" %}"></script>
-
-        <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
-        <script src="{% static "javascript/semantic.min.js" %}"></script>
+        -->
         <style type="text/css">
           body {
             background-image: url("{% static 'image/snow.png' %}");
@@ -67,7 +74,15 @@
             width: 52px;
             height: 132px;
           }
-
+          .dropdown{
+            margin-left: 10px;
+            margin-bottom: 10px;
+            margin-right: 100px;
+            height: 33px;
+            width: 175px;
+          }
+          .dropdown-menu a:hover {background-color: #ddd;}
+          .dropdown:hover .dropdown-menu {display: block;}
         </style>
 
         <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
@@ -115,6 +130,20 @@
             }
 
           });
+
+          var songid = "1";
+
+          $(document).ready(function(){
+            $(".add_to_playlist").click(function(){
+                songid = $(this).attr('id');
+                var jqxhr = $.get( "accounts/logging", function() {
+                    $('.modal').modal('show');
+                }).fail(function() {
+                    window.location.href = "accounts/login";
+                });
+            });
+          });
+
         </script>
     </head>
     <body class="default">
@@ -171,7 +200,7 @@
                           <div class="extra content">
                             <div class="ui three item menu">
                               <a class="ui button item" href="/comment/?songid={{ item.SongID }}">歌曲資料</a>
-                              <a class="ui button item" href="#">加入播放清單</a>
+                              <a class="ui button item add_to_playlist"  id="{{ item.SongID }}">加入播放清單</a>
                               <a class="ui button item" href="{{ item.SongLink }}">試聽</a>
                             </div>
                           </div>
@@ -181,21 +210,23 @@
                     </div>
                   </div>
                 </article>
-                <aside class="four wide column">
-                  <h2 class="ui dividing header">
-                    瀏覽
-                  </h2>
-                  <div class="ui buttons" style="margin:5px 0 6px 0;">
-                    <div class="ui vertical grey animated button" tabindex="0">
-                      <div class="visible content">電子舞曲</div>
-                      <div class="hidden content">EDM</div>
+                {% if request.user.is_authenticated %}
+                  <aside class="four wide column">
+                    <h2 class="ui dividing header">
+                      瀏覽
+                    </h2>
+                    <div class="ui buttons" style="margin:5px 0 6px 0;">
+                      <div class="ui vertical grey animated button" tabindex="0">
+                        <div class="visible content">電子舞曲</div>
+                        <div class="hidden content">EDM</div>
+                      </div>
+                      <div class="ui vertical green animated button" tabindex="0">
+                        <div class="visible content">流行</div>
+                        <div class="hidden content">Pop</div>
+                      </div>
                     </div>
-                    <div class="ui vertical green animated button" tabindex="0">
-                      <div class="visible content">流行</div>
-                      <div class="hidden content">Pop</div>
-                    </div>
-                  </div>
-                </aside>
+                  </aside>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -203,7 +234,7 @@
       </div>
       <aside class="sidemenu">
         <ul>
-          <h2 class="ui dividing header" style="color:#ffffff;">
+          <h2 class="ui dividing header" style="color:#ffffff;margin-top: 10px;">
               快速搜尋
           </h2>
           <form action="/search/" method="get">
@@ -226,5 +257,53 @@
         </ul>
         <button><i class="angle right icon">快速搜尋</i></button>
       </aside>
+      <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">加入播放清單</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>請選擇要加入的播放清單</p>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" data-value="0">Action</a>
+                <a class="dropdown-item" data-value="1">Another action</a>
+                <a class="dropdown-item" data-value="2">Something else here</a>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="add" type="button" class="btn btn-primary">加入</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
+    <script>
+
+      $('.dropdown').dropdown();
+
+      $(document).ready(function(){
+        $("#add").click(function(){
+          var jqxhr = $.get( "/playlist?songid=" + songid + "&playlistid=" + $(".dropdown").find('.btn').val() , function() {
+            $('.modal').modal('toggle');
+          });
+        });
+      });
+
+      $(".dropdown a").click(function(){
+        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+        $("#dropdownMenuButton").dropdown("toggle");
+      });
+
+    </script>
 </html>

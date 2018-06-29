@@ -28,12 +28,19 @@ def search(request):
 
     ls_return = []
     for s in songs:
-        entry_tmp = "SongName: {}, AlbumName: {}, ArtistName: {}".format(s.SongName, s.AlbumName, s.ArtistName)
-        print(entry_tmp)
-        ls_return.append(entry_tmp)
+        one_tuple = {}
+        one_tuple['SongName'] = s.SongName
+        one_tuple['AlbumName'] = s.AlbumName
+        one_tuple['ArtistName'] = s.ArtistName
+        one_tuple['SongID'] = s.SongID
+        one_tuple['SongLink'] = s.SongLink
+        ls_return.append(one_tuple)
 
-    #return HttpResponse("song = {}, album = {}, artist = {}".format(song, album, artist) )
-    return HttpResponse( ls_return )
+    username = None
+    if request.user.is_authenticated():
+        username = request.user.username
+
+    return render(request, 'index.html', locals())
 
 def index(request):
 

@@ -122,15 +122,9 @@
                   <h2 class="ui dividing header">
                     我的播放清單
                   </h2>
-                  <div class="ui buttons" style="margin:5px 0 6px 0;">
-                    <div class="ui vertical grey animated button" tabindex="0">
-                      <div class="visible content">電子舞曲</div>
-                      <div class="hidden content">EDM</div>
-                    </div>
-                    <div class="ui vertical green animated button" tabindex="0">
-                      <div class="visible content">流行</div>
-                      <div class="hidden content">Pop</div>
-                    </div>
+                  <div class="ui action input">
+                    <input type="text" id="playlist_name" placeholder="新增播放清單...">
+                    <button class="ui button" type="submit" id="add_new_playlist_icon">新增</button>
                   </div>
                 </aside>
               </div>
@@ -139,4 +133,13 @@
         </div>
       </div>
     </body>
+    <script>
+      $(document).ready(function(){
+        $("#add_new_playlist_icon").click(function(){
+          var jqxhr = $.get( "/create_playlist?playlist_name=" + $('#playlist_name').val(), function() {
+              $('#playlist_name').val("");
+          });
+        });
+      });
+    </script>
 </html>

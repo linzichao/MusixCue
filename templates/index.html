@@ -74,15 +74,11 @@
             width: 52px;
             height: 132px;
           }
-          .dropdown{
+          .modal_input{
             margin-left: 10px;
+            border-left-width: 1px;
             margin-bottom: 10px;
-            margin-right: 100px;
-            height: 33px;
-            width: 175px;
           }
-          .dropdown-menu a:hover {background-color: #ddd;}
-          .dropdown:hover .dropdown-menu {display: block;}
         </style>
 
         <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
@@ -171,9 +167,9 @@
             }).done(function( response ) {
               a_tag = "";
               response.data.forEach(function(element){
-	               a_tag += "<input class='dropdown-item' onClick='Click_Dropdown();' " + "data-value='" + element.PlayListID + "'>" + element.PlayListName + "</a>";
+	               a_tag += "<div class='modal_input'><input type='radio' name='radioval' style='width: 30px;' value='" + element.PlayListID + "'>" + element.PlayListName + "</input></div>";
               });
-              $('.dropdown-menu').html(a_tag);
+              $('.playlisting').html(a_tag);
             });
           });
 
@@ -303,15 +299,10 @@
             <div class="modal-body">
               <p>請選擇要加入的播放清單</p>
             </div>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                播放清單...
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              </div>
+            <div class="playlisting">
             </div>
             <div class="modal-footer">
-              <button id="add" type="button" class="btn btn-primary">加入</button>
+              <button id="add" type="submit" class="btn btn-primary">加入</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
             </div>
           </div>
@@ -337,7 +328,7 @@
 
       $(document).ready(function(){
         $("#add").click(function(){
-          var jqxhr = $.get( "/playlist?songid=" + songid + "&playlistid=" + $(".dropdown").find('.btn').val() , function() {
+          var jqxhr = $.get( "/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val() , function() {
             $('#add_playerlist').modal('toggle');
           });
         });

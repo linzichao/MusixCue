@@ -35,6 +35,7 @@ def search(request):
         one_tuple['ArtistName'] = s.ArtistName
         one_tuple['SongID'] = s.SongID
         one_tuple['SongLink'] = s.SongLink
+        one_tuple['Art_Song'] = s.ArtistName + ' - ' + s.SongName
         ls_return.append(one_tuple)
 
     username = None
@@ -66,6 +67,7 @@ def index(request):
         one_tuple['ArtistName'] = s.ArtistName
         one_tuple['SongID'] = s.SongID
         one_tuple['SongLink'] = s.SongLink
+        one_tuple['Art_Song'] = s.ArtistName + ' - ' + s.SongName
         ls_return.append(one_tuple)
 
     username = None

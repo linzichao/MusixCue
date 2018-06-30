@@ -85,6 +85,12 @@
           .comment-content {
             font-weight: 400;
           }
+          .comment-form {
+            margin: 5px;
+          }
+          #id_honeypot {
+            display: none;
+          } 
 
         </style>
 
@@ -156,7 +162,22 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <!-- {% render_comment_form for song %} -->
+                    {% get_comment_form for song as form %}
+                    <form class="ui reply form comment-form" action="{% comment_form_target %}" method="post">
+                      {% csrf_token %}
+                      {{ form.comment }}
+                      {{ form.honeypot }}
+                      {{ form.content_type }}
+                      {{ form.object_pk }}
+                      {{ form.timestamp }}
+                      {{ form.security_hash }}
+                      <!--TODO: change value to user.email -->
+                      <input type="hidden" name="email" value="test@gmail.com" />
+                      <Button type="submit" class="ui primary submit labeled icon button">
+                          <i class="icon edit"></i> Add Comment
+                      </Button>
+                    </form>
+                    </table>
                   </div>
                 </aside>
               </div>

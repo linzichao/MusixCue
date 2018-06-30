@@ -100,6 +100,20 @@ def create_playlist(request):
     else:
         return HttpResponse('Unauthorized', status=401)
 
+def delete_playlist(request):
+    if request.user.is_authenticated():
+        if request.GET:
+            p = PlayList.objects.filter(PlayListID = request.GET['playlist_id'])
+            if p:
+                p.delete()
+                return HttpResponse('ok', status=200)
+            else:
+                return HttpResponse('playlist not found', status=200)
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
 def add_song_to_playlist(request):
     if request.user.is_authenticated():
         if request.GET:

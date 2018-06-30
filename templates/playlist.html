@@ -22,16 +22,18 @@
         <link rel="stylesheet" type="text/css" href="{% static "components/list.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/message.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/icon.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/icon.min.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/card.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/table.css" %}">
 
-        <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
-        <script src="{% static "javascript/semantic.min.js" %}"></script>
-        <script src="{% static "components/form.js" %}"></script>
-        <script src="{% static "components/transition.js" %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static "stylesheet/bootstrap.min.css" %}">
+
 
         <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="{% static "javascript/semantic.min.js" %}"></script>
+
+        <script src="{% static "javascript/bootstrap.min.js" %}"></script>
         <style type="text/css">
           body {
             background-image: url("{% static 'image/snow.png' %}");
@@ -91,14 +93,17 @@
                 <article class="twelve wide column">
                   {% for item in ls_return %}
                   <div class="ui tab active" data-tab="bootstrap" style="margin-bottom: 20px;">
-                    <h2 class="ui dividing header">
-                      {{ item.playlist_name }}<button class="ui red button" id="{{ item.playlist_id }}" >刪除</button>
-                    </h2>
+                    <div>
+                      <i class="large edit icon" style="float: left;"></i>
+                      <h2 style="float: left; margin-bottom: 0px; margin-top: 0px;" > {{ item.playlist_name }}</h2>
+                      <button class="ui red button" id="{{ item.playlist_id }}" style="float: right;" >刪除</button>
+                    </div>
                     <div class="ui two column middle aligned very relaxed stackable grid" style="margin-top: 0.875rem !important">
                     </div>
                       <table class="ui large striped celled table">
                         <thead>
                           <tr>
+                            <th style="width: 2%; "></th>
                             <th class="six wide">歌名</th>
                             <th class="four wide">專輯</th>
                             <th class="three wide">藝人</th>
@@ -107,6 +112,7 @@
                         <tbody>
                           {% for i in item.songs %}
                           <tr>
+                            <td><i class="trash icon" style="width: 100%;"></i></td>
                             <td><a href="/comment?songid={{ i.SongID }}">{{ i.SongName }}</td>
                             <td>{{ i.AlbumName }}</td>
                             <td>{{ i.ArtistName }}</td>

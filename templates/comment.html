@@ -82,6 +82,9 @@
             margin: 2px;
             word-break: break-all;
           }
+          .comment-content {
+            font-weight: 400;
+          }
 
         </style>
 
@@ -149,7 +152,7 @@
                         <img class="avatar" src="https://s.zimedia.com.tw/s/eM2aSg-0">
                         <div class="content">
                           <p class="text" >{{ comment.user_name }} at {{ comment.submit_date }}</p>
-                          <p class="text" >Comment : {{ comment.comment }}</p>
+                          <p class="text comment-content" >{{ comment.comment }}</p>
                         </div>
                     </div>
                     {% endfor %}

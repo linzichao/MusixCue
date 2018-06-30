@@ -107,7 +107,7 @@
                         <tbody>
                           {% for i in item.songs %}
                           <tr>
-                            <td><a href="/comment">{{ i.SongName }}</td>
+                            <td><a href="/comment?songid={{ i.SongID }}">{{ i.SongName }}</td>
                             <td>{{ i.AlbumName }}</td>
                             <td>{{ i.ArtistName }}</td>
                           </tr>

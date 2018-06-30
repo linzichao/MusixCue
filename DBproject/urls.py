@@ -22,7 +22,7 @@ from music.views import (index, comment, search,
                          playlist, get_my_playlist, create_playlist,
                          add_song_to_playlist, delete_playlist,
                          test_page, get_my_playlist_with_song_info,
-                         delete_song_from_playlist
+                         delete_song_from_playlist, modify_playlist_name,
                         )
 
 
@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^search/$', search),
     url(r'^get_my_playlist_with_song_info/$', get_my_playlist_with_song_info),
     url(r'^delete_song_from_playlist/$', delete_song_from_playlist),
+    url(r'^modify_playlist_name/$', modify_playlist_name),
 
     # testing
     url(r'^test_page/$', test_page),

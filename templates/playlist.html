@@ -62,6 +62,16 @@
         </style>
 
         <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
+        <script>
+          $(document).ready(function(){
+            $(".large.edit.icon").click(function(){
+                playlist = $(this).attr('id');
+                var jqxhr = $.get( "/accounts/logging", function() {
+                    $('#rename_playerlist').modal('show');
+                });
+            });
+          });
+        </script>
     </head>
     <body class="default">
       <div class="pusher">
@@ -94,8 +104,8 @@
                   {% for item in ls_return %}
                   <div class="ui tab active" data-tab="bootstrap" style="margin-bottom: 20px;">
                     <div>
-                      <i class="large edit icon" style="float: left;"></i>
-                      <h2 style="float: left; margin-bottom: 0px; margin-top: 0px;" > {{ item.playlist_name }}</h2>
+                      <i id="{{ item.playlist_id }}" class="large edit icon" style="float: left;"></i>
+                      <h2 style="float: left; margin-bottom: 0px; margin-top: 0px;" >{{ item.playlist_name }}</h2>
                       <button class="ui red button" id="{{ item.playlist_id }}" style="float: right;" >刪除</button>
                     </div>
                     <div class="ui two column middle aligned very relaxed stackable grid" style="margin-top: 0.875rem !important">
@@ -137,6 +147,27 @@
           </div>
         </div>
       </div>
+      <div class="modal" id="rename_playerlist" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">修改播放清單名稱</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="ui input">
+                <input id="new_name" type="text" placeholder="新名稱...">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="accept" type="submit" class="btn btn-primary">確認</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
     <script>
       $(document).ready(function(){
@@ -152,6 +183,14 @@
               window.location.href = "/playlist";
           }).fail(function() {
               window.location.href = "/playlist";
+          });
+        });
+
+        $("#accept").click(function(){
+          var jqxhr = $.get( "/modify_playlist_name?playlist_id=" + playlist + "&playlist_name=" + $('#new_name').val() , function() {
+              window.location.href = "/playlist";
+          }).fail(function() {
+              
           });
         });
 

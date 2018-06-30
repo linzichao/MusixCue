@@ -153,8 +153,9 @@ def delete_playlist(request):
 def modify_playlist_name(request):
     if request.user.is_authenticated():
         if request.GET:
-            a = PlayList.objects.filter(PlayListID = request.GET['playlist_id'])
-            if a and request.GET['playlist_name'] != '' :
+            a = PlayList.objects.get(PlayListID = request.GET['playlist_id'])
+            
+            if a:
                 a.PlayListName = request.GET['playlist_name']
                 a.save()
                 return HttpResponse('ok', status=200)

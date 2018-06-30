@@ -101,6 +101,20 @@ def create_playlist(request):
     else:
         return HttpResponse('Unauthorized', status=401)
 
+def delete_playlist(request):
+    if request.user.is_authenticated():
+        if request.GET:
+            p = PlayList.objects.filter(PlayListID = request.GET['playlist_id'])
+            if p:
+                p.delete()
+                return HttpResponse('ok', status=200)
+            else:
+                return HttpResponse('playlist not found', status=200)
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
 def add_song_to_playlist(request):
     if request.user.is_authenticated():
         if request.GET:
@@ -119,8 +133,24 @@ def get_my_playlist(request):
     if request.user.is_authenticated():
         if request.method == 'GET':
             x = PlayList.objects.filter(CreatedBy = request.user)
-            print(x)
             return JsonResponse({'data': list(x.values())})
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
+def get_my_playlist_with_song_info(request):
+    if request.user.is_authenticated():
+        if request.method == 'GET':
+            playlists = PlayList.objects.filter(CreatedBy = request.user)
+            ret = []
+            for p in playlists:
+                a = AddTo.objects.filter(PlayListID = p.PlayListID)
+                print({ 'playlist_name': p.PlayListName
+                       , 'songs': list(Song.objects.filter(SongID__in = a).values()) })
+                ret.append( { 'playlist_name': p.PlayListName
+                       , 'songs': list(Song.objects.filter(SongID__in = a).values()) })
+            return JsonResponse({'data': ret})
         else:
             return HttpResponse('Bad Request', status=400)
     else:

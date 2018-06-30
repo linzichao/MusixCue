@@ -150,6 +150,21 @@ def delete_playlist(request):
     else:
         return HttpResponse('Unauthorized', status=401)
 
+def modify_playlist_name(request):
+    if request.user.is_authenticated():
+        if request.GET:
+            a = PlayList.objects.filter(PlayListID = request.GET['playlist_id'])
+            if a and request.GET['playlist_name'] != '' :
+                a.PlayListName = request.GET['playlist_name']
+                a.save()
+                return HttpResponse('ok', status=200)
+            else:
+                return HttpResponse('playlist not found or name is null', status=200)
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
 def add_song_to_playlist(request):
     if request.user.is_authenticated():
         if request.GET:
@@ -159,6 +174,23 @@ def add_song_to_playlist(request):
                 )
             a.save()
             return HttpResponse('Ok', status=200)
+        else:
+            return HttpResponse('Bad Request', status=400)
+    else:
+        return HttpResponse('Unauthorized', status=401)
+
+def delete_song_from_playlist(request):
+    if request.user.is_authenticated():
+        if request.GET:
+            p = PlayList.objects.filter(
+                    SongID = Song.objects.get(SongID = request.GET['song_id']),
+                    PlayListID = PlayList.objects.get(PlayListID = request.GET['playlist_id'])
+            )
+            if p:
+                p.delete()
+                return HttpResponse('ok', status=200)
+            else:
+                return HttpResponse('record not found', status=200)
         else:
             return HttpResponse('Bad Request', status=400)
     else:

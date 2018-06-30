@@ -235,6 +235,7 @@ def comment(request):
 
             #ThisSongLyrics = ThisSongLyrics.replace('\n','<br>')
 
+            SongUrl = Song.objects.get(SongID=int(SongID)).SongLink
             SongBelongAlbum = BelongTo.objects.get(SongID_id=SongID)
             ArtistReleaseAlbum = Release.objects.get(AlbumID=SongBelongAlbum.AlbumID_id)
 

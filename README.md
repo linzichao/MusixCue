@@ -19,7 +19,7 @@ Basic Deployment
 
 ## Instructions of using docker to launch DB
 ```bash
-docker run -p 3306:3306 --name musixcue-mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=musixcue -d mysql:5.7
+docker run -p 3306:3306 --name musixcue-mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=musixcue -d mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 ```bash
 cat << EOF > DBproject/settings.ini

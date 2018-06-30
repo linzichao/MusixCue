@@ -94,6 +94,13 @@
               }
           }
 
+          function isElementOverflowing(element) {
+              var overflowX = element.offsetWidth < element.scrollWidth,
+                  overflowY = element.offsetHeight < element.scrollHeight;
+
+              return (overflowX || overflowY);
+          }
+
           $(function(){
 
             var duration = 300;
@@ -184,10 +191,12 @@
             MusixCue
             </a>
             {% if request.user.is_authenticated %}
-                <p class="header item">Hello {{ username }}!</p>
                 <a href="/accounts/info" class="header item">個人資料</a>
                 <a href="/playlist" class="header item">播放清單</a>
-                <a href="/accounts/logout" class="header right item">登出</a>
+                <div class="header item right" style=" padding-top: 0px; padding-bottom: 0px; padding-left: 0px;">
+                  <a class="header item" href="/accounts/info" style="text-align: center;">Hello {{ username }}! </a>
+                  <a href="/accounts/logout" class="header item">登出</a>
+                </div>
             {% else %}
                 <a href="/accounts/login/" class="header item">登入</a>
                 <a href="/accounts/register/" class="header item">註冊</a>
@@ -243,18 +252,20 @@
                 {% if request.user.is_authenticated %}
                   <aside class="four wide column">
                     <h2 class="ui dividing header">
-                      瀏覽
+                      音樂清單
                     </h2>
-                    <div class="ui buttons" style="margin:5px 0 6px 0;">
-                      <div class="ui vertical grey animated button" tabindex="0">
-                        <div class="visible content">電子舞曲</div>
-                        <div class="hidden content">EDM</div>
-                      </div>
-                      <div class="ui vertical green animated button" tabindex="0">
-                        <div class="visible content">流行</div>
-                        <div class="hidden content">Pop</div>
-                      </div>
-                    </div>
+                    <ul id="playlist" style="padding-left: 0px;">
+                      {% for item in ls_return %}
+                      <li class="list-group-item ui button item listen_music" data-url="{{ item.SongLink }}" style="margin-bottom: 5px; width: 90%;">
+                        {% if item.SongName|length > 20 %}
+                          <marquee direction="left" scrollamount="3" style="float: left; width: 70%;">{{item.SongName}}</marquee>
+                        {% else %}
+                          <span style="float: left; text-align: left; width: 70%;">{{item.SongName}}</span>
+                        {% endif%}
+                        <i class="play icon" style="float: right; width: 15%;" ></i>
+                      </li>
+                      {% endfor %}
+                    </ul>
                   </aside>
                 {% endif %}
               </div>
@@ -262,7 +273,7 @@
           </div>
         </div>
       </div>
-      <aside class="sidemenu">
+      <aside class="sidemenu" style="z-index: 10">
         <ul>
           <h2 class="ui dividing header" style="color:#ffffff;margin-top: 10px;">
               快速搜尋

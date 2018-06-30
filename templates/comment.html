@@ -33,6 +33,7 @@
         <script src="{% static "javascript/semantic.min.js" %}"></script>
 
         <script src="{% static "javascript/bootstrap.min.js" %}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <style type="text/css">
           body {
             background-image: url("{% static 'image/snow.png' %}");
@@ -92,7 +93,11 @@
           #id_honeypot {
             display: none;
           }
-
+          .modal_input{
+            margin-left: 10px;
+            border-left-width: 1px;
+            margin-bottom: 10px;
+          }
         </style>
 
         <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
@@ -113,9 +118,19 @@
             $.get("/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val(), function(result){
               $('#add_playerlist').modal('toggle');
               $('input[name=radioval]:checked').prop("checked", false );
+              swal({
+                title: "歌曲已成功加入播放清單",
+                icon: "success",
+                  button: "Ok",
+              });
             }).fail(function( jqXHR, textStatus, errorThrown ) {
               $('#add_playerlist').modal('toggle');
               $('input[name=radioval]:checked').prop("checked", false );
+              swal({
+                title: "歌曲重複加入播放清單",
+                icon: "warning",
+                  button: "Ok",
+              });
             });
           });
 

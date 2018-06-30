@@ -222,7 +222,7 @@
                       音樂清單
                     </h2>
                     <div class="ui two stackable doubling cards" style="margin-top: 0.875rem !important">
-                    {% for item in ls_return %}
+                    {% for item in page %}
                         <div class="ui raised link card">
                           <div class="content">
                             <div class="header">
@@ -243,6 +243,13 @@
                         <div class="ui hidden divider"></div>
                     {% endfor %}
                     </div>
+                    {% for index in page.paginator.page_range %}
+                        {% if index == page.number %}
+                            {{ index }}
+                        {% else %}
+                        <button class="paging" id="pindex={{ index }}" style="margin-top: 20px;">{{ index }}</button>
+                        {% endif %}
+                    {% endfor %}
                   </div>
                 </article>
                 {% if request.user.is_authenticated %}
@@ -331,6 +338,13 @@
     </body>
     <script>
 
+      $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if(results == null)
+          return 0;
+        return results[1] || 0;
+      }
+
       $(document).ready(function(){
         $("#add").click(function(result){
           $.get("/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val(), function(result){
@@ -351,7 +365,19 @@
             });
           });
         });
+
+        $(".paging").click(function(){
+
+          if($.urlParam('artist') != '0' || $.urlParam('album') != '0' || $.urlParam('song') != '0'){
+            window.location.href = window.location.href + "&" + $(this).attr('id');
+          }else{
+            window.location.href = "?" + $(this).attr('id');
+          }
+
+        });
+
       });
+
 
     </script>
 </html>

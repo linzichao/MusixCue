@@ -79,6 +79,39 @@ def playlist(request):
     if request.user.is_authenticated():
         if request.method == 'GET':
             PlayListing = PlayList.objects.filter(CreatedBy = request.user)
+            ls_return = []
+
+            for p in PlayListing:
+
+                sql = "select * from music_song as SONG \
+                        INNER JOIN music_belongto as BLON \
+                            on SONG.SongID = BLON.SongID_id \
+                        INNER JOIN music_album as ALB \
+                            on BLON.AlbumID_id = ALB.AlbumID \
+                        INNER JOIN music_release as REL \
+                            on ALB.AlbumID = REL.AlbumID_id \
+                        INNER JOIN music_artist as ART \
+                            on REL.ArtistID_id = ART.ArtistID \
+                        INNER JOIN music_addto as ADDTO \
+                            on ADDTO.SongID_id = SONG.SongID \
+                        WHERE \
+                            PlayListID_id = \"{}\" ".format(p.PlayListID)
+
+                songs = Song.objects.raw(sql)
+
+
+                ls_songs = []
+
+                for s in songs:
+                    ls_songs.append({ 'SongName': s.SongName, 'AlbumName': s.AlbumName,
+                        'ArtistName': s.ArtistName, 'SongID':s.SongID })
+
+                print(ls_songs)
+                ls_return.append({ 'playlist_id': p.PlayListID, 'playlist_name': p.PlayListName
+                           , 'songs': ls_songs })
+
+
+
             return render(request, 'playlist.html', locals())
     else:
         return HttpResponseRedirect("/accounts/login/")

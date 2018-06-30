@@ -89,10 +89,10 @@
             <div class="ui divided relaxed grid stackable container">
               <div class="row">
                 <article class="twelve wide column">
-                  {% for item in PlayListing %}
-                  <div class="ui tab active" data-tab="bootstrap">
+                  {% for item in ls_return %}
+                  <div class="ui tab active" data-tab="bootstrap" style="margin-bottom: 20px;">
                     <h2 class="ui dividing header">
-                      {{ item.PlayListName }}
+                      {{ item.playlist_name }}<button class="ui red button" id="{{ item.playlist_id }}" >刪除</button>
                     </h2>
                     <div class="ui two column middle aligned very relaxed stackable grid" style="margin-top: 0.875rem !important">
                     </div>
@@ -105,16 +105,13 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% for i in item.songs %}
                           <tr>
-                            <td><a href="/comment">Perfect</td>
-                            <td>Divide ÷</td>
-                            <td>Ed Sheeran</td>
+                            <td><a href="/comment">{{ i.SongName }}</td>
+                            <td>{{ i.AlbumName }}</td>
+                            <td>{{ i.ArtistName }}</td>
                           </tr>
-                          <tr>
-                            <td><a href="/comment">Shape of You</td>
-                            <td>Divide ÷</td>
-                            <td>Ed Sheeran</td>
-                          </tr>
+                          {% endfor %}
                         </tbody>
                       </table>
                   </div>
@@ -143,6 +140,11 @@
               window.location.href = "/playlist";
           });
         });
+
+        $(".ui.red.button").click(function(){
+          console.log($(this).attr('id'));
+        });
+
       });
     </script>
 </html>

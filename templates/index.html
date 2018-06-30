@@ -325,13 +325,16 @@
     <script>
 
       $(document).ready(function(){
-        $("#add").click(function(){
-          var jqxhr = $.get( "/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val() , function() {
+        $("#add").click(function(result){
+          $.get("/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val(), function(result){
             $('#add_playerlist').modal('toggle');
+            $('input[name=radioval]:checked').prop("checked", false );
+          }).fail(function( jqXHR, textStatus, errorThrown ) {
+            $('#add_playerlist').modal('toggle');
+            $('input[name=radioval]:checked').prop("checked", false );
           });
         });
-
       });
-      
+
     </script>
 </html>

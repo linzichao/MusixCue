@@ -61,15 +61,49 @@
 
         <link href="{% sass_src "default.scss" %}" rel="stylesheet" type="text/css" />
         <script>
+        function getId(url) {
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+
+            if (match && match[2].length == 11) {
+                return match[2];
+            } else {
+                return 'error';
+            }
+        }
+
         $(document).ready(function(){
-          $(".right.ui.button").click(function(){
+          $("#add").click(function(result){
+            $.get("/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val(), function(result){
+              $('#add_playerlist').modal('toggle');
+              $('input[name=radioval]:checked').prop("checked", false );
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+              $('#add_playerlist').modal('toggle');
+              $('input[name=radioval]:checked').prop("checked", false );
+            });
+          });
+
+          $("#add_playlist").click(function(){
               var jqxhr = $.get( "/accounts/logging", function() {
                   $('#add_playerlist').modal('show');
               }).fail(function() {
                   window.location.href = "accounts/login";
               });
           });
+
+          var $videoSrc, $videoId;
+          $(".listen_music").click(function(){
+              $videoSrc = $(this).data('url');
+              console.log($videoSrc);
+              $videoId = getId( $videoSrc )
+              console.log($videoId);
+              $("#video").attr('src', "//www.youtube.com/embed/" + $videoId + "?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1" );
+              $('#play_video_modal').modal('show');
+          });
+
         });
+
+
 
         $(function(){
           var jqxhr = $.get( "/get_my_playlist" , function() {
@@ -113,9 +147,9 @@
               <h2 class="ui dividing header">
                 歌曲資料
               </h2>
-              <div class="right menu" style="margin-left: 850px;">
-                  <button class="right ui button"><i class="plus icon"></i>加入播放清單</button>
-                  <a href="/" class="right ui button"><i class="music icon"></i>前往試聽</a>
+              <div class="right menu listen_music" data-url="{{SongUrl}}" style="margin-left: 850px;">
+                  <button class="right ui button" id="add_playlist" ><i class="plus icon"></i>加入播放清單</button>
+                  <p class="right ui button"><i class="music icon"></i>前往試聽</p>
               </div>
               <div class="row">
                 <div class="top ui three item menu">
@@ -245,22 +279,19 @@
           </div>
         </div>
       </div>
+      <div class="modal" id="play_video_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body" style="background-color: white;" >
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always">></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
     <script>
-
       songid = {{ SongID }};
-
-      $(document).ready(function(){
-        $("#add").click(function(result){
-          $.get("/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val(), function(result){
-            $('#add_playerlist').modal('toggle');
-            $('input[name=radioval]:checked').prop("checked", false );
-          }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $('#add_playerlist').modal('toggle');
-            $('input[name=radioval]:checked').prop("checked", false );
-          });
-        });
-      });
-
     </script>
 </html>

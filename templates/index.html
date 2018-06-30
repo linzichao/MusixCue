@@ -150,7 +150,7 @@
           $(document).ready(function(){
             $(".add_to_playlist").click(function(){
                 songid = $(this).attr('id');
-                var jqxhr = $.get( "accounts/logging", function() {
+                var jqxhr = $.get( "/accounts/logging", function() {
                     $('#add_playerlist').modal('show');
                 }).fail(function() {
                     window.location.href = "accounts/login";

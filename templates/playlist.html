@@ -142,7 +142,11 @@
         });
 
         $(".ui.red.button").click(function(){
-          console.log($(this).attr('id'));
+          var jqxhr = $.get( "/delete_playlist?playlist_id=" + $(this).attr('id') , function() {
+              window.location.href = "/playlist";
+          }).fail(function() {
+              window.location.href = "/playlist";
+          });
         });
 
       });

@@ -160,7 +160,7 @@ def comment(request):
         if request.method == 'GET':
 
             SongID = request.GET.get('songid', '')
-
+            song = Song.objects.get(SongID=int(SongID))
             ThisSongName = Song.objects.get(SongID=int(SongID)).SongName
             ThisSongLyrics = Song.objects.get(SongID=int(SongID)).SongLyrics
 

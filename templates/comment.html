@@ -1,5 +1,6 @@
 {% load static %}
 {% load sass_tags %}
+{% load comments %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -54,6 +55,32 @@
           #banner{
             background-image: url("{% static 'image/banner.jpeg' %}");
             background-position: center;
+          }
+          .comment {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            border: #cfcfcf solid 0.5px;
+            margin: 5px;
+            border-radius: 5px;
+          }
+          .avatar {
+            height: 35px;
+            width: 35px;
+            margin: 5px;
+            border-radius: .25rem;
+          }
+          .content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 5px;
+          }
+          .text {
+            margin: 2px;
+            word-break: break-all;
           }
 
         </style>
@@ -116,84 +143,17 @@
                 <aside class="five wide column" style="margin-top: 15px;">
                   <div class="ui comments">
                     <h3 class="ui dividing header">評論</h3>
+                    {% get_comment_list for song as comment_list %}
+                    {% for comment in comment_list %}
                     <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/matt.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Matt</a>
-                        <div class="metadata">
-                          <span class="date">Today at 5:42PM</span>
+                        <img class="avatar" src="https://s.zimedia.com.tw/s/eM2aSg-0">
+                        <div class="content">
+                          <p class="text" >{{ comment.user_name }} at {{ comment.submit_date }}</p>
+                          <p class="text" >Comment : {{ comment.comment }}</p>
                         </div>
-                        <div class="text">
-                          How artistic!
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                      </div>
                     </div>
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/elliot.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Elliot Fu</a>
-                        <div class="metadata">
-                          <span class="date">Yesterday at 12:30AM</span>
-                        </div>
-                        <div class="text">
-                          <p>This has been very useful for my research. Thanks as well!</p>
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                      </div>
-                      <div class="comments">
-                        <div class="comment">
-                          <a class="avatar">
-                            <img src="/images/avatar/small/jenny.jpg">
-                          </a>
-                          <div class="content">
-                            <a class="author">Jenny Hess</a>
-                            <div class="metadata">
-                              <span class="date">Just now</span>
-                            </div>
-                            <div class="text">
-                              Elliot you are always so right :)
-                            </div>
-                            <div class="actions">
-                              <a class="reply">Reply</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/joe.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Joe Henderson</a>
-                        <div class="metadata">
-                          <span class="date">5 days ago</span>
-                        </div>
-                        <div class="text">
-                          Dude, this is awesome. Thanks so much
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                      </div>
-                    </div>
-                    <form class="ui reply form">
-                      <div class="field">
-                        <textarea></textarea>
-                      </div>
-                      <div class="ui blue labeled submit icon button">
-                        <i class="icon edit"></i> Add Reply
-                      </div>
-                    </form>
+                    {% endfor %}
+                    <!-- {% render_comment_form for song %} -->
                   </div>
                 </aside>
               </div>

@@ -162,6 +162,10 @@ def add_song_to_playlist(request):
     else:
         return HttpResponse('Unauthorized', status=401)
 
+def delete_song_from_playlist(request):
+
+    return HttpResponse('Unauthorized', status=401)
+
 def get_my_playlist(request):
     if request.user.is_authenticated():
         if request.method == 'GET':

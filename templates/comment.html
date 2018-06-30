@@ -80,7 +80,7 @@
           }
           .text {
             margin: 2px;
-            word-break: break-all;
+            word-break: break-word;
           }
           .comment-content {
             font-weight: 400;
@@ -90,7 +90,7 @@
           }
           #id_honeypot {
             display: none;
-          } 
+          }
 
         </style>
 
@@ -173,9 +173,12 @@
                       {{ form.security_hash }}
                       <!--TODO: change value to user.email -->
                       <input type="hidden" name="email" value="test@gmail.com" />
-                      <Button type="submit" class="ui primary submit labeled icon button">
-                          <i class="icon edit"></i> Add Comment
-                      </Button>
+                      <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                      <div style="margin-top: 5px">
+                        <Button type="submit" class="ui primary submit labeled icon button">
+                            <i class="icon edit"></i> Add Comment
+                        </Button>
+                      </div>
                     </form>
                     </table>
                   </div>

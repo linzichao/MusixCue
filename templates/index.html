@@ -255,10 +255,10 @@
                 {% if request.user.is_authenticated %}
                   <aside class="four wide column">
                     <h2 class="ui dividing header">
-                      Playlist
+                      QuickAccess
                     </h2>
                     <ul id="playlist" style="padding-left: 0px;">
-                      {% for item in ls_return %}
+                      {% for item in ls_return_random %}
                       <li class="list-group-item ui button item listen_music" data-url="{{ item.SongLink }}" style="margin-bottom: 5px; width: 90%;">
                         {% if item.Art_Song|length > 18 %}
                           <marquee direction="left" scrollamount="3" style="float: left; width: 70%;">{{item.Art_Song}}</marquee>

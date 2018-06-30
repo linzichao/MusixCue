@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from music.models import Song, Album, Artist, Release, BelongTo, PlayList, AddTo
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+
+import random
 import json
 
 def search(request):
@@ -85,6 +87,10 @@ def index(request):
         pindex = 1
     paginatior = Paginator(ls_return, 20)
     page = paginatior.page(int(pindex))
+
+    ls_return_random = []
+    for i in range(0, 35):
+        ls_return_random.append(random.choice(ls_return))
 
     username = None
     if request.user.is_authenticated():

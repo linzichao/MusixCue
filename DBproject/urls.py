@@ -17,11 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from accounts.views import login, logout, register, info, is_loggin
+
 from music.views import (index, comment, search,
                          playlist, get_my_playlist, create_playlist,
                          add_song_to_playlist, delete_playlist,
-                         test_page
+                         test_page, get_my_playlist_with_song_info
                         )
+
 
 urlpatterns = [
     url(r'^$', index),
@@ -43,6 +45,7 @@ urlpatterns = [
     url(r'^get_my_playlist/$', get_my_playlist),
     url(r'^comment/$', comment),
     url(r'^search/$', search),
+    url(r'^get_my_playlist_with_song_info/$', get_my_playlist_with_song_info),
 
     # testing
     url(r'^test_page/$', test_page),

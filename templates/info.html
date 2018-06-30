@@ -31,6 +31,7 @@
 
         <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
         <script src="{% static "javascript/semantic.min.js" %}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <style type="text/css">
           body {
             background-image: url("{% static 'image/snow.png' %}");
@@ -125,6 +126,14 @@
       </div>
     </body>
     <script type="text/javascript">
-      $('#submit').click(function() {document.forms[0].submit()});
+      $('#submit').click(function() {
+        swal({
+          title: "成功更新個人資料",
+          icon: "success",
+          buttons: "Ok",
+        }).then((value) => {
+          document.forms[0].submit();
+        });
+      });
     </script>
 </html>

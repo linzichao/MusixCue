@@ -154,7 +154,7 @@ def modify_playlist_name(request):
     if request.user.is_authenticated():
         if request.GET:
             a = PlayList.objects.get(PlayListID = request.GET['playlist_id'])
-            
+
             if a:
                 a.PlayListName = request.GET['playlist_name']
                 a.save()
@@ -183,7 +183,7 @@ def add_song_to_playlist(request):
 def delete_song_from_playlist(request):
     if request.user.is_authenticated():
         if request.GET:
-            p = PlayList.objects.filter(
+            p = AddTo.objects.filter(
                     SongID = Song.objects.get(SongID = request.GET['song_id']),
                     PlayListID = PlayList.objects.get(PlayListID = request.GET['playlist_id'])
             )

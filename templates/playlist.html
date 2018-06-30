@@ -34,6 +34,8 @@
         <script src="{% static "javascript/semantic.min.js" %}"></script>
 
         <script src="{% static "javascript/bootstrap.min.js" %}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
         <style type="text/css">
           body {
             background-image: url("{% static 'image/snow.png' %}");
@@ -102,7 +104,7 @@
               <div class="row">
                 <article class="twelve wide column">
                   {% for item in ls_return %}
-                  <div class="ui tab active" data-tab="bootstrap" style="margin-bottom: 20px;">
+                  <div id="list{{ item.playlist_id }}" class="ui tab active" data-tab="bootstrap" style="margin-bottom: 20px;">
                     <div>
                       <i id="{{ item.playlist_id }}" class="large edit icon" style="float: left;"></i>
                       <h2 style="float: left; margin-bottom: 0px; margin-top: 0px;" >{{ item.playlist_name }}</h2>
@@ -122,7 +124,7 @@
                         <tbody>
                           {% for i in item.songs %}
                           <tr>
-                            <td><i class="trash icon" style="width: 100%;"></i></td>
+                            <td><i id="song_id={{ i.SongID }}&playlist_id={{item.playlist_id}}" class="trash icon" style="width: 100%;"></i></td>
                             <td><a href="/comment?songid={{ i.SongID }}">{{ i.SongName }}</td>
                             <td>{{ i.AlbumName }}</td>
                             <td>{{ i.ArtistName }}</td>
@@ -140,6 +142,15 @@
                   <div class="ui action input">
                     <input type="text" id="playlist_name" placeholder="新增播放清單...">
                     <button class="ui button" type="submit" id="add_new_playlist_icon">新增</button>
+                  </div>
+                  <div class="ui middle aligned divided list">
+                    {% for item in ls_return %}
+                    <div class="item">
+                      <div class="content">
+                        <a class="header" href="#list{{ item.playlist_id }}" style="height: 20px;">{{ item.playlist_name }}</a>
+                      </div>
+                    </div>
+                    {% endfor %}
                   </div>
                 </aside>
               </div>
@@ -179,10 +190,25 @@
         });
 
         $(".ui.red.button").click(function(){
-          var jqxhr = $.get( "/delete_playlist?playlist_id=" + $(this).attr('id') , function() {
-              window.location.href = "/playlist";
-          }).fail(function() {
-              window.location.href = "/playlist";
+          swal({
+            title: "你確定刪除嗎?",
+            text: "一但刪除播放清單，會將歌曲紀錄一併刪除！",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal({
+                title: "你成功刪除播放清單",
+                icon: "success",
+              }).then((value) =>{ $.get( "/delete_playlist?playlist_id=" + $(this).attr('id') , function() {
+                                    window.location.href = "/playlist";
+                                  }).fail(function() {
+                                    swal({ title:"刪除失敗！", icon: "warning"});
+                                  })});
+
+            }
           });
         });
 
@@ -190,7 +216,23 @@
           var jqxhr = $.get( "/modify_playlist_name?playlist_id=" + playlist + "&playlist_name=" + $('#new_name').val() , function() {
               window.location.href = "/playlist";
           }).fail(function() {
-              
+
+          });
+        });
+
+        $(".trash.icon").click(function(){
+          swal({
+            title: "你確定將歌曲從播放清單移除?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              var jqxhr = $.get( "/delete_song_from_playlist?" +$(this).attr('id') , function() {
+                  window.location.href = "/playlist";
+              });
+            }
           });
         });
 

@@ -324,8 +324,6 @@
     </body>
     <script>
 
-      $('.dropdown').dropdown();
-
       $(document).ready(function(){
         $("#add").click(function(){
           var jqxhr = $.get( "/add_song_to_playlist?song_id=" + songid + "&playlist_id=" + $('input[name=radioval]:checked').val() , function() {
@@ -334,6 +332,6 @@
         });
 
       });
-
+      
     </script>
 </html>

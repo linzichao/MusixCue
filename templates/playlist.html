@@ -89,9 +89,10 @@
             <div class="ui divided relaxed grid stackable container">
               <div class="row">
                 <article class="twelve wide column">
+                  {% for item in PlayListing %}
                   <div class="ui tab active" data-tab="bootstrap">
                     <h2 class="ui dividing header">
-                      播放清單：獨立最前線
+                      {{ item.PlayListName }}
                     </h2>
                     <div class="ui two column middle aligned very relaxed stackable grid" style="margin-top: 0.875rem !important">
                     </div>
@@ -117,6 +118,7 @@
                         </tbody>
                       </table>
                   </div>
+                  {% endfor %}
                 </article>
                 <aside class="four wide column">
                   <h2 class="ui dividing header">
@@ -138,6 +140,7 @@
         $("#add_new_playlist_icon").click(function(){
           var jqxhr = $.get( "/create_playlist?playlist_name=" + $('#playlist_name').val(), function() {
               $('#playlist_name').val("");
+              window.location.href = "/playlist";
           });
         });
       });

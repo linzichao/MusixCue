@@ -78,6 +78,7 @@ def index(request):
 def playlist(request):
     if request.user.is_authenticated():
         if request.method == 'GET':
+            PlayListing = PlayList.objects.filter(CreatedBy = request.user)
             return render(request, 'playlist.html', locals())
     else:
         return HttpResponseRedirect("/accounts/login/")

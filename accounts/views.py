@@ -3,7 +3,7 @@ from django.contrib.auth.views import login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 
 import datetime
@@ -42,3 +42,10 @@ def info(request):
             return HttpResponseRedirect("/accounts/info")
     else:
         return HttpResponseRedirect("/")
+
+def is_loggin(request):
+
+    if request.user.is_authenticated:
+        return HttpResponse('')
+    else:
+        return HttpResponse('Unauthorized', status=401)

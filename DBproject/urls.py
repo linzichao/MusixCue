@@ -15,18 +15,38 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from accounts.views import login, logout, register, info
-from music.views import index, playlist
+
+from accounts.views import login, logout, register, info, is_loggin
+
+from music.views import (index, comment, search,
+                         playlist, get_my_playlist, create_playlist,
+                         add_song_to_playlist, delete_playlist,
+                         test_page, get_my_playlist_with_song_info
+                        )
+
 
 urlpatterns = [
     url(r'^$', index),
     url(r'^admin/', admin.site.urls),
     url(r'^comments/', include('django_comments.urls')),
 
+    # accounts
     url(r'^accounts/login/$', login, {'template_name':'login.html'}),
     url(r'^accounts/logout/$', logout, {'next_page': '/'}),
     url(r'^accounts/register/$', register),
     url(r'^accounts/info/$', info),
+    url(r'^accounts/logging/$', is_loggin),
 
-    url(r'^playlist/$', playlist)
+    # music
+    url(r'^playlist/$', playlist),
+    url(r'^create_playlist/$', create_playlist),
+    url(r'^delete_playlist/$', delete_playlist),
+    url(r'^add_song_to_playlist/$', add_song_to_playlist),
+    url(r'^get_my_playlist/$', get_my_playlist),
+    url(r'^comment/$', comment),
+    url(r'^search/$', search),
+    url(r'^get_my_playlist_with_song_info/$', get_my_playlist_with_song_info),
+
+    # testing
+    url(r'^test_page/$', test_page),
 ]

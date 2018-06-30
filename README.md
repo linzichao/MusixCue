@@ -16,3 +16,17 @@ Basic Deployment
    ```
     $ python manage.py runserver
    ```
+
+## Instructions of using docker to launch DB
+```bash
+docker run -p 3306:3306 --name musixcue-mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=musixcue -d mysql:5.7
+```
+```bash
+cat << EOF > DBproject/settings.ini
+[settings]
+NAME=musixcue
+USER=root
+PASSWORD=123
+HOST=127.0.0.1
+EOF
+```

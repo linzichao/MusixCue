@@ -23,6 +23,7 @@
         <link rel="stylesheet" type="text/css" href="{% static "components/message.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/icon.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "components/card.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "components/table.css" %}">
 
         <script src="{% static "javascript/jquery-3.3.1.min.js" %}"></script>
         <script src="{% static "javascript/semantic.min.js" %}"></script>
@@ -90,19 +91,55 @@
                 <article class="twelve wide column">
                   <div class="ui tab active" data-tab="bootstrap">
                     <h2 class="ui dividing header">
-                      播放清單
+                      播放清單：獨立最前線
                     </h2>
-                    <div class="ui two column middle aligned very relaxed stackable grid">
-
-
-
+                    <div class="ui two column middle aligned very relaxed stackable grid" style="margin-top: 0.875rem !important">
                     </div>
+                      <table class="ui large striped celled table">
+                        <thead>
+                          <tr>
+                            <th class="six wide">歌名</th>
+                            <th class="four wide">專輯</th>
+                            <th class="three wide">藝人</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><a href="/comment">Perfect</td>
+                            <td>Divide ÷</td>
+                            <td>Ed Sheeran</td>
+                          </tr>
+                          <tr>
+                            <td><a href="/comment">Shape of You</td>
+                            <td>Divide ÷</td>
+                            <td>Ed Sheeran</td>
+                          </tr>
+                        </tbody>
+                      </table>
                   </div>
                 </article>
+                <aside class="four wide column">
+                  <h2 class="ui dividing header">
+                    我的播放清單
+                  </h2>
+                  <div class="ui action input">
+                    <input type="text" id="playlist_name" placeholder="新增播放清單...">
+                    <button class="ui button" type="submit" id="add_new_playlist_icon">新增</button>
+                  </div>
+                </aside>
               </div>
             </div>
           </div>
         </div>
       </div>
     </body>
+    <script>
+      $(document).ready(function(){
+        $("#add_new_playlist_icon").click(function(){
+          var jqxhr = $.get( "/create_playlist?playlist_name=" + $('#playlist_name').val(), function() {
+              $('#playlist_name').val("");
+          });
+        });
+      });
+    </script>
 </html>

@@ -1,11 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
 [packages]
-
 django = "==1.11"
 "django-appconf" = "==1.0.2"
 "django-compressor" = "==2.2"
@@ -17,10 +15,9 @@ pytz = "==2018.4"
 rcssmin = "==1.0.6"
 rjsmin = "==1.0.12"
 "django-contrib-comments" = "*"
-
+Pipfile = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.6"
-

@@ -184,10 +184,12 @@
             MusixCue
             </a>
             {% if request.user.is_authenticated %}
-                <p class="header item">Hello {{ username }}!</p>
                 <a href="/accounts/info" class="header item">個人資料</a>
                 <a href="/playlist" class="header item">播放清單</a>
-                <a href="/accounts/logout" class="header right item">登出</a>
+                <div class="header item right" style=" padding-top: 0px; padding-bottom: 0px; padding-left: 0px;">
+                  <a class="header item" href="/accounts/info" style="text-align: center;">Hello {{ username }}! </a>
+                  <a href="/accounts/logout" class="header item">登出</a>
+                </div>
             {% else %}
                 <a href="/accounts/login/" class="header item">登入</a>
                 <a href="/accounts/register/" class="header item">註冊</a>

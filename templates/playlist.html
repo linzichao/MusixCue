@@ -57,7 +57,7 @@
             font-weight: bold;
           }
           #banner{
-            background-image: url("{% static 'image/banner.jpeg' %}");
+            background-image: url("{% static 'image/banner.png' %}");
             background-position: center;
           }
 
@@ -72,6 +72,22 @@
                     $('#rename_playerlist').modal('show');
                 });
             });
+
+            setInterval(showNext, 3500);
+            var index = 0;
+
+            function showNext(){
+              if(index == 0){
+                $('#banner').css('background-image', "url({% static 'image/banner.png' %})").fadeToggle();
+                $('#banner').css('background-image', "url({% static 'image/banner4.png' %})").fadeToggle();
+                index += 4;
+              }else{
+                $('#banner').css('background-image', "url({% static 'image/banner4.png' %})").fadeToggle();
+                $('#banner').css('background-image', "url({% static 'image/banner.png' %})").fadeToggle();
+                index = 0;
+              }
+            }
+
           });
         </script>
     </head>

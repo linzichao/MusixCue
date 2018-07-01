@@ -52,7 +52,7 @@
             padding: 5em 0em;
           }
           #banner{
-            background-image: url("{% static 'image/banner.jpeg' %}");
+            background-image: url("{% static 'image/banner.png' %}");
             background-position: center;
           }
           .sidemenu{
@@ -125,7 +125,7 @@
 
             function showNext(){
               if(index == 0){
-                $('#banner').css('background-image', "url({% static 'image/banner.jpeg' %})").fadeToggle();
+                $('#banner').css('background-image', "url({% static 'image/banner.png' %})").fadeToggle();
                 $('#banner').css('background-image', "url({% static 'image/banner2.png' %})").fadeToggle();
                 index += 1;
               }else if(index == 1){
@@ -134,7 +134,7 @@
                 index += 1;
               }else{
                 $('#banner').css('background-image', "url({% static 'image/banner3.png' %})").fadeToggle();
-                $('#banner').css('background-image', "url({% static 'image/banner.jpeg' %})").fadeToggle();
+                $('#banner').css('background-image', "url({% static 'image/banner.png' %})").fadeToggle();
                 index = 0;
               }
             }
@@ -270,7 +270,7 @@
                       {% endfor %}
                     </ul>
                   </aside>
-                
+
               </div>
             </div>
           </div>

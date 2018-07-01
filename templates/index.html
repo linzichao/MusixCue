@@ -247,12 +247,12 @@
                         {% if index == page.number %}
                             {{ index }}
                         {% else %}
-                        <button class="paging" id="pindex={{ index }}" style="margin-top: 20px;">{{ index }}</button>
+                        <button class="paging" id="pindex={{ index }}" style="margin-top: 20px;border-radius: 15px;">{{ index }}</button>
                         {% endif %}
                     {% endfor %}
                   </div>
                 </article>
-                {% if request.user.is_authenticated %}
+
                   <aside class="four wide column">
                     <h2 class="ui dividing header">
                       QuickAccess
@@ -270,7 +270,7 @@
                       {% endfor %}
                     </ul>
                   </aside>
-                {% endif %}
+                
               </div>
             </div>
           </div>
